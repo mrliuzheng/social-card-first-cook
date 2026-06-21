@@ -14,7 +14,7 @@
   :root{--paper:#f2ece0;--paper-2:#ece4d5;--ink:#1c1a17;--ink-rgb:28,26,23;--accent:#7a5a38;--muted:rgba(28,26,23,.55);--line:rgba(28,26,23,.12);--mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,Courier,monospace;--serif-zh:Georgia,'Times New Roman',"Noto Serif SC","Source Han Serif SC","思源宋体","Songti SC",serif;--serif-en:Georgia,'Times New Roman',serif}
 
   /* ---- Slide container ---- */
-  .slide{position:relative;width:100%;aspect-ratio:9/16;overflow:hidden;display:flex;flex-direction:column;justify-content:center;color:var(--ink)}
+  .slide{position:relative;width:100%;aspect-ratio:9/16;overflow:hidden;display:flex;flex-direction:column;justify-content:center;color:var(--ink);background:var(--paper)}
   .slide+.slide{border-top:2px solid var(--line)}
 
   /* ---- Backgrounds ---- */
@@ -53,7 +53,7 @@
 
   /* ---- Page indicator ---- */
   .page-dot{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:99;display:flex;flex-direction:column;gap:6px}
-  .page-dot a{display:block;width:6px;height:6px;border-radius:50%;background:rgba(245,241,232,.3);transition:background .2s}
+  .page-dot a{display:block;width:6px;height:6px;border-radius:50%;background:rgba(245,241,232,.3);transition:background .2s;cursor:pointer}
   .page-dot a.active{background:#f5f1e8;width:8px;height:8px}
 </style>
 </head>
@@ -180,11 +180,18 @@
 </section>
 
 <script>
-// Active page dot highlight
 (function(){
   var dots = document.querySelectorAll('.page-dot a');
   var slides = document.querySelectorAll('.slide');
   if(!dots.length) return;
+  // Click to scroll to slide
+  dots.forEach(function(d,i){
+    d.addEventListener('click',function(e){
+      e.preventDefault();
+      slides[i].scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+  // Active highlight on scroll
   function update(){
     var idx = slides.length - 1;
     for(var i=0;i<slides.length;i++){
