@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="kraft-paper">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>第一次做饭的交响乐 · 手机版</title>
+<style>
+  /* ---- Reset ---- */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+  body{background:#1a1512;font-family:Georgia,'Times New Roman',"Noto Serif SC","Source Han Serif SC","思源宋体","Songti SC",serif;color:#1c1a17;-webkit-font-smoothing:antialiased}
+
+  /* ---- Kraft Paper theme ---- */
+  :root{--paper:#f2ece0;--paper-2:#ece4d5;--ink:#1c1a17;--ink-rgb:28,26,23;--accent:#7a5a38;--muted:rgba(28,26,23,.55);--line:rgba(28,26,23,.12);--mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,Courier,monospace;--serif-zh:Georgia,'Times New Roman',"Noto Serif SC","Source Han Serif SC","思源宋体","Songti SC",serif;--serif-en:Georgia,'Times New Roman',serif}
+
+  /* ---- Slide container ---- */
+  .slide{position:relative;width:100%;aspect-ratio:9/16;overflow:hidden;display:flex;flex-direction:column;justify-content:center;color:var(--ink)}
+  .slide+.slide{border-top:2px solid var(--line)}
+
+  /* ---- Backgrounds ---- */
+  .hero-bleed{position:absolute;inset:0;background-size:cover;background-position:center}
+  .overlay-bot{position:absolute;inset:0;pointer-events:none}
+  .overlay-full{position:absolute;inset:0;pointer-events:none}
+
+  /* ---- Content ---- */
+  .inner{position:relative;z-index:2;padding:28px 24px;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+  .inner.c{justify-content:center}
+  .inner.b{justify-content:flex-end}
+  .inner.t{justify-content:flex-start}
+
+  /* ---- Typography (mobile-optimized) ---- */
+  .kicker{font-family:var(--mono);font-size:clamp(11px,2.6vw,15px);letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px;opacity:.7}
+  .h-display{font-family:var(--serif-zh);font-weight:500;font-size:clamp(32px,8vw,52px);line-height:1.15;letter-spacing:.04em;margin:0 0 12px}
+  .h-xl{font-family:var(--serif-zh);font-weight:500;font-size:clamp(26px,6.5vw,42px);line-height:1.2;letter-spacing:.03em;margin:0 0 10px}
+  .h-md{font-family:var(--serif-zh);font-weight:500;font-size:clamp(22px,5.5vw,36px);line-height:1.25;margin:0 0 8px}
+  .body{font-family:var(--serif-zh);font-weight:400;font-size:clamp(14px,3.6vw,20px);line-height:1.65;color:rgba(var(--ink-rgb),.82);margin:0 0 10px}
+  .body-sm{font-family:var(--serif-zh);font-weight:400;font-size:clamp(12px,3.2vw,17px);line-height:1.6;color:rgba(var(--ink-rgb),.78)}
+  .meta{font-family:var(--mono);font-size:clamp(10px,2.4vw,14px);letter-spacing:.2em;text-transform:uppercase;color:rgba(var(--ink-rgb),.55)}
+  .pullquote{font-family:var(--serif-zh);font-style:italic;font-weight:500;font-size:clamp(26px,6.8vw,44px);line-height:1.25;letter-spacing:.04em;color:var(--ink);margin:0}
+  .white{color:#f5f1e8}
+  .white .kicker{color:#f5f1e8;opacity:.85}
+
+  /* ---- Ledger (P5) ---- */
+  .ledger{display:flex;flex-direction:column;gap:2px}
+  .ledger-row{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(245,241,232,.25)}
+  .ledger-row:last-child{border-bottom:none}
+  .ledger-nb{font-family:var(--mono);font-size:clamp(10px,2.4vw,14px);color:#f5f1e8;opacity:.7}
+  .ledger-title{font-family:var(--serif-zh);font-weight:400;font-size:clamp(12px,3.2vw,18px);line-height:1.4;color:#f5f1e8}
+
+  /* ---- Bottom strip ---- */
+  .strip{position:absolute;left:24px;right:24px;bottom:14px;z-index:3;display:flex;justify-content:space-between;font-family:var(--mono);font-size:clamp(9px,2vw,12px);letter-spacing:.12em;text-transform:uppercase;color:rgba(var(--ink-rgb),.4);border-top:1px solid var(--line);padding-top:10px}
+  .white+.strip{color:rgba(245,241,232,.5);border-color:rgba(245,241,232,.2)}
+
+  /* ---- Page indicator ---- */
+  .page-dot{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:99;display:flex;flex-direction:column;gap:6px}
+  .page-dot a{display:block;width:6px;height:6px;border-radius:50%;background:rgba(245,241,232,.3);transition:background .2s}
+  .page-dot a.active{background:#f5f1e8;width:8px;height:8px}
+</style>
+</head>
+<body>
+
+<!-- Quick nav dots -->
+<nav class="page-dot">
+  <a href="#s1" class="active"></a>
+  <a href="#s2"></a>
+  <a href="#s3"></a>
+  <a href="#s4"></a>
+  <a href="#s5"></a>
+  <a href="#s6"></a>
+</nav>
+
+<!-- ==================== S1 · 封面 ==================== -->
+<section class="slide" id="s1">
+  <div class="hero-bleed" style="background-image:url('assets/cover-kitchen.jpg');background-position:center 48%"></div>
+  <div class="overlay-full" style="background:linear-gradient(to top,rgba(26,21,18,.7) 0%,rgba(26,21,18,.3) 40%,rgba(26,21,18,.1) 60%)"></div>
+  <div class="inner white">
+    <div>
+      <p class="kicker">Vol. 01 — 生活 · 厨房</p>
+    </div>
+    <div>
+      <h1 class="h-display" style="font-size:clamp(30px,7.5vw,48px);letter-spacing:.12em;margin-bottom:24px">
+        第一次做饭<br>的"交响乐"
+      </h1>
+      <p class="meta" style="color:#f5f1e8;opacity:.7">EGG · FRYING PAN · 16 YEARS OLD</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== S2 · 背景 ==================== -->
+<section class="slide" id="s2">
+  <div class="hero-bleed" style="background-image:url('assets/pg02-mother-sick.jpg');background-position:center 50%"></div>
+  <div class="overlay-full" style="background:linear-gradient(to top,rgba(26,21,18,.6) 0%,rgba(26,21,18,.2) 50%)"></div>
+  <div class="inner white b">
+    <p class="kicker" style="margin-bottom:auto">Story · 那一天的开始</p>
+    <div>
+      <blockquote class="pullquote" style="font-size:clamp(24px,6.2vw,40px);margin-bottom:16px">
+        "妈妈生病了，<br>我来做饭"
+      </blockquote>
+      <div style="border-top:1px solid rgba(245,241,232,.35);width:60px;padding-top:10px"></div>
+    </div>
+  </div>
+  <div class="strip white">Page 02 of 06&nbsp;&nbsp;—&nbsp;&nbsp;引子</div>
+</section>
+
+<!-- ==================== S3 · 高潮拆解 ==================== -->
+<section class="slide" id="s3">
+  <div class="hero-bleed" style="background-image:url('assets/pg03-crack-egg.jpg');background-position:center 50%"></div>
+  <div class="overlay-full" style="background:linear-gradient(to top,rgba(26,21,18,.65) 0%,rgba(26,21,18,.3) 45%,transparent 65%)"></div>
+  <div class="inner white b">
+    <p class="kicker">Action · 动作拆解</p>
+    <h2 class="h-md" style="font-size:clamp(20px,5vw,32px);margin-bottom:8px">第一步就卡住了</h2>
+    <p class="body-sm" style="color:#f5f1e8;opacity:.88">拿蛋 → 在碗沿磕了一下 → 没开。再磕一下 → 壳碎了。</p>
+    <p class="body-sm" style="color:#f5f1e8;opacity:.85;margin-top:4px">掰开蛋壳时,有一小块碎壳掉进了碗里。用筷子捞了三次才捞出来。</p>
+    <p class="body-sm" style="color:#f5f1e8;opacity:.85;margin-top:4px">最后:打开冰箱找油——翻了半天发现油就在灶台上。</p>
+  </div>
+  <div class="strip white">Page 03 of 06&nbsp;&nbsp;—&nbsp;&nbsp;第一视角</div>
+</section>
+
+<!-- ==================== S4 · 情节特写 ==================== -->
+<section class="slide" id="s4">
+  <div class="hero-bleed" style="background-image:url('assets/pg04-egg-sizzle.jpg');background-position:center 45%"></div>
+  <div class="overlay-bot" style="background:linear-gradient(to top,rgba(42,30,19,.65) 0%,transparent 40%)"></div>
+  <div class="inner white b">
+    <p class="kicker">Moment · "呲啦"</p>
+    <h2 class="h-display" style="font-size:clamp(22px,5.8vw,38px);max-width:85%;margin-bottom:12px">
+      蛋液入油那一刻的震撼
+    </h2>
+    <p class="body-sm" style="color:#f5f1e8;opacity:.88">
+      那一瞬间,油花四溅,我整个人往后跳了一步。但蛋已经在锅里了,没有回头路。
+    </p>
+  </div>
+  <div class="strip white">Page 04 of 06&nbsp;&nbsp;—&nbsp;&nbsp;关键时刻</div>
+</section>
+
+<!-- ==================== S5 · 感悟 ==================== -->
+<section class="slide" id="s5">
+  <div class="hero-bleed" style="background-image:url('assets/pg05-kid-eating.jpg');background-position:center 38%"></div>
+  <div class="overlay-full" style="background:linear-gradient(to top,rgba(42,30,19,.75) 0%,rgba(42,30,19,.5) 35%,rgba(42,30,19,.3) 60%)"></div>
+  <div class="inner white">
+    <p class="kicker">Reflection · 之后的领悟</p>
+    <div style="margin-top:auto">
+      <h2 class="h-display" style="font-size:clamp(22px,5.8vw,38px);margin-bottom:16px">
+        那一碗被我<br>煎糊了的蛋
+      </h2>
+      <div class="ledger">
+        <div class="ledger-row">
+          <span class="ledger-nb">01</span>
+          <span class="ledger-title">体会到妈妈每天做饭的不易</span>
+        </div>
+        <div class="ledger-row">
+          <span class="ledger-nb">02</span>
+          <span class="ledger-title">原来"不简单"的三餐是日复一日</span>
+        </div>
+        <div class="ledger-row">
+          <span class="ledger-nb">03</span>
+          <span class="ledger-title">最简单的食材,最深的爱</span>
+        </div>
+        <div class="ledger-row">
+          <span class="ledger-nb">04</span>
+          <span class="ledger-title">煎焦的蛋,是我长大的味道</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="strip white">Page 05 of 06&nbsp;&nbsp;—&nbsp;&nbsp;感悟</div>
+</section>
+
+<!-- ==================== S6 · 结尾 ==================== -->
+<section class="slide" id="s6">
+  <div class="inner c" style="align-items:center;text-align:center">
+    <p class="kicker">The Question · 留给你的</p>
+    <h1 class="h-display" style="font-size:clamp(28px,7vw,46px);margin:16px 0">
+      你第一次<br>
+      下厨是什么<br>
+      画面？
+    </h1>
+    <p class="body" style="max-width:80%;margin:0 auto">在评论区告诉我你的故事。</p>
+  </div>
+  <div class="strip">End · Page 06&nbsp;&nbsp;—&nbsp;&nbsp;欢迎留言</div>
+</section>
+
+<script>
+// Active page dot highlight
+(function(){
+  var dots = document.querySelectorAll('.page-dot a');
+  var slides = document.querySelectorAll('.slide');
+  if(!dots.length) return;
+  function update(){
+    var idx = slides.length - 1;
+    for(var i=0;i<slides.length;i++){
+      var r = slides[i].getBoundingClientRect();
+      if(r.top < window.innerHeight/2){ idx = i; }
+    }
+    dots.forEach(function(d,j){ d.classList.toggle('active',j===idx); });
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+</script>
+</body>
+</html>
