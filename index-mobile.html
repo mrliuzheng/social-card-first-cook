@@ -191,12 +191,13 @@
       slides[i].scrollIntoView({behavior:'smooth',block:'start'});
     });
   });
-  // Active highlight on scroll
+  // Active highlight on scroll — use intersection ratio
   function update(){
-    var idx = slides.length - 1;
+    var maxVis = -1, idx = 0;
     for(var i=0;i<slides.length;i++){
       var r = slides[i].getBoundingClientRect();
-      if(r.top < window.innerHeight/2){ idx = i; }
+      var vis = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      if(vis > maxVis){ maxVis = vis; idx = i; }
     }
     dots.forEach(function(d,j){ d.classList.toggle('active',j===idx); });
   }
