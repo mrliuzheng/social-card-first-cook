@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>"慢吞吞"的吃货 · 儿童绘本</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+  body{background:#f7f3ed;font-family:"Noto Serif SC","Source Han Serif SC","思源宋体","Songti SC",Georgia,'Times New Roman',serif;color:#3d342a;-webkit-font-smoothing:antialiased}
+
+  :root{--cream:#f7f3ed;--cream-2:#efe8db;--ink:#3d342a;--ink-rgb:61,52,42;--accent:#7da86a;--accent-soft:#b8d4a8;--warm:#d4825a;--muted:rgba(61,52,42,.5);--line:rgba(61,52,42,.1);--white:#fcf9f5;--mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,Courier,monospace;--font-zh:"Noto Serif SC","Source Han Serif SC","思源宋体","Songti SC",serif;--font-en:Georgia,'Times New Roman',serif}
+
+  .slide{position:relative;width:100%;aspect-ratio:9/16;overflow:hidden;display:flex;flex-direction:column;color:var(--ink);background:var(--cream);border-bottom:4px solid var(--cream-2)}
+
+  /* ---- Background illustration / decor ---- */
+  .bg-circles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .circle{position:absolute;border-radius:50%;opacity:.08}
+  .hero-bleed{position:absolute;inset:0;background-size:cover;background-position:center}
+  .overlay-bot{position:absolute;inset:0;background:linear-gradient(to top,rgba(247,243,237,.85) 0%,transparent 45%);pointer-events:none}
+
+  /* ---- Content ---- */
+  .inner{position:relative;z-index:2;padding:40px 32px;height:100%;display:flex;flex-direction:column}
+  .inner.c{justify-content:center;text-align:center;align-items:center}
+  .inner.b{justify-content:flex-end}
+  .inner.t{justify-content:flex-start}
+
+  /* ---- Typography (kids book: warm, rounded, soft) ---- */
+  .kicker{font-size:clamp(12px,3vw,16px);font-family:var(--mono);letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .h-display{font-weight:700;font-size:clamp(34px,9vw,52px);line-height:1.15;letter-spacing:.02em;margin:0 0 16px;color:var(--ink)}
+  .h-xl{font-weight:700;font-size:clamp(28px,7.5vw,44px);line-height:1.2;margin:0 0 12px}
+  .h-md{font-weight:600;font-size:clamp(22px,5.8vw,34px);line-height:1.25;margin:0 0 10px}
+  .h-sub{font-weight:500;font-size:clamp(18px,4.5vw,26px);line-height:1.3;margin:0 0 8px;color:var(--accent)}
+  .body{font-weight:400;font-size:clamp(16px,4.2vw,22px);line-height:1.75;color:rgba(var(--ink-rgb),.82);margin:0 0 12px}
+  .meta{font-family:var(--mono);font-size:clamp(10px,2.5vw,13px);letter-spacing:.15em;color:var(--muted)}
+
+  /* ---- Decorative elements ---- */
+  .divider{width:48px;height:3px;background:var(--accent);border-radius:2px;margin:14px 0}
+  .divider.white-bg{background:var(--white)}
+  .story-num{display:inline-flex;align-items:center;justify-content:center;width:clamp(28px,7vw,40px);height:clamp(28px,7vw,40px);border-radius:50%;background:var(--accent-soft);color:var(--ink);font-weight:700;font-size:clamp(14px,3.5vw,20px);margin-bottom:8px}
+  .highlight{color:var(--accent);font-weight:600}
+  .highlight-warm{color:var(--warm);font-weight:600}
+  .action-word{display:inline-block;background:var(--accent-soft);padding:0 6px;border-radius:4px;font-weight:600}
+  .quote-icon{font-size:clamp(28px,7vw,40px);color:var(--accent-soft);line-height:1;margin-bottom:4px;opacity:.6}
+  .emoji{font-size:clamp(24px,6vw,36px);display:inline-block}
+
+  /* ---- P1 cover special ---- */
+  .cover-deco{position:absolute;bottom:0;left:0;right:0;height:45%;background:linear-gradient(to top,rgba(125,168,106,.12) 0%,transparent 100%);pointer-events:none}
+  .leaf{position:absolute;width:12px;height:12px;background:var(--accent-soft);border-radius:0 50% 50% 50%;opacity:.3;transform:rotate(45deg)}
+
+  /* ---- P3 action breakdown ---- */
+  .action-grid{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+  .action-item{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;padding:8px 12px;background:rgba(125,168,106,.07);border-radius:8px}
+  .action-nb{font-family:var(--mono);font-size:clamp(11px,2.8vw,14px);font-weight:700;color:var(--accent)}
+  .action-text{font-size:clamp(14px,3.6vw,19px);line-height:1.5;color:rgba(var(--ink-rgb),.80)}
+
+  /* ---- P4 mood board ---- */
+  .insight{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+  .insight-row{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .insight-row:last-child{border-bottom:none}
+  .insight-nb{font-family:var(--mono);font-size:clamp(11px,2.8vw,14px);color:var(--warm);font-weight:700}
+  .insight-text{font-size:clamp(14px,3.6vw,19px);line-height:1.5;color:rgba(var(--ink-rgb),.78)}
+
+  /* ---- Page indicator ---- */
+  .page-dot{position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:99;display:flex;flex-direction:column;gap:10px}
+  .page-dot a{display:block;width:8px;height:8px;border-radius:50%;background:rgba(61,52,42,.15);transition:all .2s;cursor:pointer}
+  .page-dot a.active{background:var(--accent);width:10px;height:10px}
+</style>
+</head>
+<body>
+
+<nav class="page-dot">
+  <a href="#s1" class="active"></a>
+  <a href="#s2"></a>
+  <a href="#s3"></a>
+  <a href="#s4"></a>
+  <a href="#s5"></a>
+</nav>
+
+<!-- ==================== P1 · 封面 ==================== -->
+<section class="slide" id="s1">
+  <div class="bg-circles" style="top:-30%;right:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(125,168,106,.12),transparent 70%)"></div>
+  <div class="bg-circles" style="bottom:-20%;left:-15%;width:60%;height:60%;background:radial-gradient(circle,rgba(212,130,90,.08),transparent 70%)"></div>
+  <div class="cover-deco"></div>
+  <div class="inner c" style="gap:8px">
+    <div style="font-size:clamp(40px,12vw,72px);margin-bottom:4px">🐢</div>
+    <p class="kicker">范文二 · 状物篇</p>
+    <h1 class="h-display" style="font-size:clamp(34px,9vw,52px);letter-spacing:.04em">
+      "慢吞吞"<br>的吃货
+    </h1>
+    <div class="divider"></div>
+    <p class="body" style="max-width:80%;margin:0 auto;color:var(--muted)">一只有性格的小乌龟的故事</p>
+    <p class="meta" style="margin-top:24px">🐢 · 🥬 · 💚</p>
+  </div>
+</section>
+
+<!-- ==================== P2 · 开头+背景 ==================== -->
+<section class="slide" id="s2">
+  <div class="bg-circles" style="top:10%;right:-10%;width:50%;height:50%;background:radial-gradient(circle,rgba(125,168,106,.10),transparent 70%)"></div>
+  <div class="inner t" style="padding-top:48px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <div class="story-num">1</div>
+      <span class="kicker" style="margin:0;font-size:clamp(11px,2.8vw,15px)">我遇见了小绿</span>
+    </div>
+    <p class="body" style="margin-bottom:10px">
+      去年夏天，我遇到了一位性格奇特的朋友——一只名叫<span class="highlight">&ldquo;小绿&rdquo;</span>的乌龟。
+    </p>
+    <p class="body" style="margin-bottom:12px">
+      每当想起这个<span class="highlight-warm">慢吞吞</span>的家伙进食时的样子，我的心里就像被羽毛轻轻挠过一样觉得有趣，那画面至今依然清晰。
+    </p>
+    <div style="border-left:3px solid var(--accent-soft);padding:10px 16px;background:rgba(125,168,106,.06);border-radius:0 8px 8px 0;margin-top:4px">
+      <p class="body" style="font-size:clamp(15px,4vw,20px);margin:0;color:rgba(var(--ink-rgb),.70)">
+        <span class="emoji">🐢</span> 那是一个细雨蒙蒙的下午……
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== P3 · 高潮拆解 ==================== -->
+<section class="slide" id="s3">
+  <div class="bg-circles" style="top:0;right:0;width:70%;height:70%;background:radial-gradient(circle at top right,rgba(212,130,90,.10),transparent 70%)"></div>
+  <div class="bg-circles" style="bottom:0;left:0;width:60%;height:60%;background:radial-gradient(circle at bottom left,rgba(125,168,106,.08),transparent 70%)"></div>
+  <div class="inner t" style="padding-top:40px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <div class="story-num">2</div>
+      <span class="kicker" style="margin:0;font-size:clamp(11px,2.8vw,15px)">终于行动了！</span>
+    </div>
+    <p class="body" style="margin-bottom:8px;font-size:clamp(15px,4vw,20px)">
+      这只<span class="highlight-warm">贪吃龟</span>终于行动了！只见它——</p>
+    <div class="action-grid">
+      <div class="action-item">
+        <span class="action-nb">①</span>
+        <span class="action-text">慢悠悠地从龟壳里探出<span class="highlight">半个脑袋</span>，绿豆大小的眼睛警惕地转了两圈</span>
+      </div>
+      <div class="action-item">
+        <span class="action-nb">②</span>
+        <span class="action-text">四只<span class="highlight-warm">小短腿</span>笨拙地扒拉着石头，像个小坦克一样一点点挪动</span>
+      </div>
+      <div class="action-item">
+        <span class="action-nb">③</span>
+        <span class="action-text">脖子尽力伸得老长，猛地张开嘴巴，以<span class="highlight">罕见的速度</span>咬住龟粮</span>
+      </div>
+      <div class="action-item">
+        <span class="action-nb">④</span>
+        <span class="action-text">迅速把头缩回水里，闭着眼睛<span class="highlight-warm">得意地咀嚼</span>——刚才的迟钝全不见了！</span>
+      </div>
+    </div>
+    <p class="body" style="margin-top:10px;font-size:clamp(14px,3.6vw,19px);text-align:center">
+      <span class="emoji">💥</span> 我的心瞬间提到了嗓子眼！
+    </p>
+  </div>
+</section>
+
+<!-- ==================== P4 · 感悟 ==================== -->
+<section class="slide" id="s4">
+  <div class="bg-circles" style="top:-10%;left:-10%;width:60%;height:60%;background:radial-gradient(circle,rgba(125,168,106,.10),transparent 70%)"></div>
+  <div class="inner t" style="padding-top:44px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <div class="story-num">3</div>
+      <span class="kicker" style="margin:0;font-size:clamp(11px,2.8vw,15px)">那些感悟</span>
+    </div>
+    <h2 class="h-md" style="margin-bottom:12px">🐢 我的收获</h2>
+    <div class="insight">
+      <div class="insight-row">
+        <span class="insight-nb">01</span>
+        <span class="insight-text">感受到了养小动物的<span class="highlight-warm">快乐</span></span>
+      </div>
+      <div class="insight-row">
+        <span class="insight-nb">02</span>
+        <span class="insight-text">每种生命都有自己<span class="highlight">独特的生存节奏</span></span>
+      </div>
+      <div class="insight-row">
+        <span class="insight-nb">03</span>
+        <span class="insight-text">每个生命都藏着<span class="highlight-warm">隐藏的"小本领"</span></span>
+      </div>
+      <div class="insight-row">
+        <span class="insight-nb">04</span>
+        <span class="insight-text">慢不代表不行——只是在等<span class="highlight">最好的时机</span>而已</span>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:12px 16px;background:rgba(212,130,90,.08);border-radius:10px;text-align:center">
+      <p class="body" style="font-size:clamp(15px,4vw,21px);margin:0;font-weight:600">
+        这真是一次难忘的体验啊！💚
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== P5 · 结尾互动 ==================== -->
+<section class="slide" id="s5">
+  <div class="bg-circles" style="top:-20%;right:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(125,168,106,.12),transparent 70%)"></div>
+  <div class="bg-circles" style="bottom:-15%;left:-10%;width:50%;height:50%;background:radial-gradient(circle,rgba(212,130,90,.08),transparent 70%)"></div>
+  <div class="inner c" style="gap:6px">
+    <div style="font-size:clamp(36px,10vw,60px);margin-bottom:8px">🐢 🥬 💚</div>
+    <p class="kicker">互动时间</p>
+    <h2 class="h-xl" style="margin-bottom:8px">你家有"小绿"吗？</h2>
+    <p class="body" style="max-width:80%;margin:0 auto;color:var(--muted)">
+      你最爱的宠物是什么？<br>它有什么让你意外的"小本领"？
+    </p>
+    <div style="margin-top:16px;padding:10px 24px;background:var(--accent-soft);border-radius:20px;display:inline-flex;align-items:center;gap:8px">
+      <span style="font-size:clamp(14px,3.5vw,18px);font-weight:600;color:var(--ink)">💬 在评论区告诉我吧</span>
+    </div>
+    <p class="meta" style="margin-top:24px">范文二 · 状物篇 · 🐢 慢吞吞的吃货</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  var dots = document.querySelectorAll('.page-dot a');
+  var slides = document.querySelectorAll('.slide');
+  if(!dots.length) return;
+  dots.forEach(function(d,i){
+    d.addEventListener('click',function(e){ e.preventDefault(); slides[i].scrollIntoView({behavior:'smooth',block:'start'}); });
+  });
+  function update(){
+    var maxVis = -1, idx = 0;
+    for(var i=0;i<slides.length;i++){
+      var r = slides[i].getBoundingClientRect();
+      var vis = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      if(vis > maxVis){ maxVis = vis; idx = i; }
+    }
+    dots.forEach(function(d,j){ d.classList.toggle('active',j===idx); });
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+</script>
+</body>
+</html>
