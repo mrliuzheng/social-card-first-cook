@@ -171,6 +171,32 @@
       .poster.xhs .content {
         padding: 4vw 4vw;
       }
+      /* Scale down every type token proportionally on phones */
+      .poster.xhs .h-display { font-size: calc(124px * 0.42); }
+      .poster.xhs .h-xl      { font-size: calc(88px * 0.42); }
+      .poster.xhs .h-md      { font-size: calc(56px * 0.42); }
+      .poster.xhs .h-sub     { font-size: calc(36px * 0.42); }
+      .poster.xhs .lead      { font-size: calc(28px * 0.45); line-height: 1.45; }
+      .poster.xhs .body      { font-size: calc(24px * 0.45); line-height: 1.50; }
+      .poster.xhs .meta      { font-size: calc(18px * 0.45); }
+      .poster.xhs .label     { font-size: calc(18px * 0.45); }
+      .poster.xhs .pullquote { font-size: calc(64px * 0.40); line-height: 1.20; }
+      .poster.xhs .issue-row { font-size: calc(20px * 0.45); }
+      .poster.xhs .h-display,
+      .poster.xhs .h-xl,
+      .poster.xhs .h-md,
+      .poster.xhs .lead,
+      .poster.xhs .body,
+      .poster.xhs .pullquote { margin-bottom: 8px; }
+    }
+    /* Tablet intermediate */
+    @media (min-width: 601px) and (max-width: 900px) {
+      .poster.xhs .h-display { font-size: calc(124px * 0.60); }
+      .poster.xhs .h-xl      { font-size: calc(88px * 0.60); }
+      .poster.xhs .h-md      { font-size: calc(56px * 0.60); }
+      .poster.xhs .lead      { font-size: calc(28px * 0.65); }
+      .poster.xhs .body      { font-size: calc(24px * 0.65); }
+      .poster.xhs .pullquote { font-size: calc(64px * 0.58); }
     }
     .poster figure { margin: 0; }
 
